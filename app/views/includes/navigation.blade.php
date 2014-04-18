@@ -10,10 +10,12 @@
       <a class="navbar-brand" href="{{ URL::route('home') }}">Webs2-Webshop</a>
     </div>
     <ul class="nav navbar-nav">
+      <li class="{{ (Request::is('/')) ? 'active' : '' }}"><a href="{{ URL::to('/') }}">Home</a></li>
     @if (Auth::check())
-      <li class="{{ Request::is( 'user') ? 'active' : '' }}"><a href="{{ URL::to('user/' . Auth::user()->id . '/profile') }}/profile') }}">Profile</a></li>
-    @endif
+      <li class="{{ (Route::current()->getPath() == 'user/{id}/profile') ? 'active' : '' }}"><a href="{{ URL::to('user/' . Auth::user()->id . '/profile') }}">Profile</a></li>
+    @else
       <li class="{{ Request::is( 'register') ? 'active' : '' }}"><a href="{{ URL::to('register') }}">Register</a></li>
+    @endif
     </ul>
 	@if (!Auth::check())
     <a href="{{ URL::to('login') }}" class="btn btn-default navbar-btn pull-right">Sign in</a>

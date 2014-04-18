@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="span4 offset1">
 		<div class="well">
-			<legend>Register</legend>
+			<legend>Login</legend>
 			{{ Form::open(array('route' => 'sessions.store')) }}
 
 			@if($errors->any())
@@ -17,11 +17,12 @@
 
 			{{ Form::text('email', '', array('placeholder' => 'Email', 'class' => 'form-control')) }}<br />
 			{{ Form::password('password', array('placeholder' => 'Password', 'class' => 'form-control', 'value' => Input::old('password'))) }}<br />
-			
+
+
 			<div class="btn-toolbar">
-				{{ Form::submit('Register', array('class' => 'btn btn-success')) }}
+				{{ Form::submit('Login', array('class' => 'btn btn-success')) }}
 				{{ HTML::link('/', 'Cancel', array('class' => 'btn btn-danger pull-right')) }}
-				{{ HTML::link('login', 'Login', array('class' => 'btn btn-primary pull-right')) }}
+				{{ HTML::link('register', 'Register', array('class' => 'btn btn-primary pull-right')) }}
 			</div>
 
 			{{ Form::token() . Form::close() }}

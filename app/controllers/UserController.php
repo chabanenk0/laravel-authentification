@@ -10,21 +10,6 @@ class UserController extends BaseController {
 
     }
 
-    /**
-     * Show the profile for the given user
-     */
-    public function showProfile($id)
-    {
-        $user = User::find($id);
-
-        return View::make('pages.user.profile', array('user' => $user));
-    }
-
-    public function showRegister()
-    {
-        return View::make('sessions.register');
-    }
-
     public function storeRegister()
     {
         // POST

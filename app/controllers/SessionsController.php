@@ -3,16 +3,6 @@
 class SessionsController extends \BaseController {
 
 	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('sessions.create');
-	}
-
-	/**
 	 * Store a newly created resource in storage.
 	 *
 	 * @return Response
@@ -31,7 +21,7 @@ class SessionsController extends \BaseController {
 	    if ($validation->fails())
 	    {
 	        // Validation has failed.
-	       	return Redirect::back()->with(array('message' => 'Something went wrong with the validation.', 'alert-class'=>'alert-danger'))->withInput()->withErrors($validation);
+	       	return Redirect::back()->with(array('message' => 'Something went wrong with the validation.', 'alert-class'=>'alert-warning'))->withInput()->withErrors($validation);
 	    }
 
 	    // Validation has succeeded. Create new user.
@@ -47,6 +37,31 @@ class SessionsController extends \BaseController {
 		// else
 		return Redirect::back()->with(array('message' => 'Invalid credentials.', 'alert-class'=>'alert-danger'))->withInput();
 		
+	}
+
+	public function postRegister()
+	{
+		$input = Input::all();
+
+		$rules = array('email' => 'required|unique:users', 'password' => 'required');
+
+		$v = Validator::make($input, $rules);
+
+		if($v->passes())
+		{
+			$password = $input['password'];
+			$password = Hash::make($password);
+
+			$user = new User();
+			$user->email = $input['email'];
+			$user->password = $password;
+			$user->save();
+
+			return Redirect::to('login');
+		} else {
+
+			return Redirect::to('register')->withInput()->withErrors();
+		}
 	}
 
 	/**

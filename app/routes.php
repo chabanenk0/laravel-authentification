@@ -11,22 +11,14 @@
 |
 */
 
-Route::get('/', ['as' => 'home', function()
-{
-	return View::make('pages.home');
-}]);
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@showHome']);
 
-/*Route::get('/profile', array('before' => 'auth', function()
-{
-	return View::make('pages.user.profile');
-}));*/
+Route::get('user/{id}/profile', array('before' => 'auth', 'uses' => 'HomeController@showProfile'));
 
-Route::get('user/{id}/profile', array('before' => 'auth', 'uses' => 'UserController@showProfile'));
-
-Route::get('login', 'SessionsController@create');
+Route::get('login', 'HomeController@showLogin');
 Route::post('login', 'SessionsController@store')->before('csrf');
 
-Route::get('register', 'UserController@showRegister');
+Route::get('register', 'HomeController@showRegister');
 Route::post('register', 'UserController@storeRegister')->before('csrf');
 
 Route::get('logout', 'SessionsController@destroy');
